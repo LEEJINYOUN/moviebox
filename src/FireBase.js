@@ -9,6 +9,7 @@ import {
   orderBy,
   doc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
 
@@ -32,3 +33,4 @@ export const dbOnSnapshot = onSnapshot;
 export const dbOrderBy = orderBy;
 export const dbDoc = doc;
 export const dbDeleteDoc = deleteDoc;
+export const dbUpdateDoc = updateDoc;
