@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Detail() {
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
   const [detailMove, setDetailMove] = useState([]);
   const getMovies = async () => {
     const json = await (
@@ -11,21 +13,31 @@ export default function Detail() {
       )
     ).json();
     setDetailMove(json);
+    setLoading(false);
   };
   useEffect(() => {
     getMovies();
   }, []);
 
   return (
-    <div>
-      <h2>{detailMove.title}</h2>
-      <img
-        src={`https://image.tmdb.org/t/p/w1280/` + detailMove.poster_path}
-        alt="없음"
-        width="150px"
-        height="200px"
-      />
-      <p>{detailMove.overview}</p>
-    </div>
+    <>
+      {loading ? (
+        <h1>로딩 중...</h1>
+      ) : (
+        <>
+          <Link to="/">메인으로</Link>
+          <div>
+            <h2>{detailMove.title}</h2>
+            <img
+              src={`https://image.tmdb.org/t/p/w1280/` + detailMove.poster_path}
+              alt="없음"
+              width="150px"
+              height="200px"
+            />
+            <p>{detailMove.overview}</p>
+          </div>
+        </>
+      )}
+    </>
   );
 }

@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Movie from "../components/Movie";
+import { authService } from "../FireBase";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  const onLogOutClick = () => {
+    authService.signOut();
+    window.localStorage.clear();
+    window.location.replace("/");
+  };
   const [movies, setMovies] = useState([]);
   const getMovies = async () => {
     const json = await (
@@ -11,10 +17,18 @@ export default function Home() {
       )
     ).json();
     setMovies(json.results);
-    setLoading(false);
   };
   useEffect(() => {
     getMovies();
   }, []);
-  return <div>{loading ? <h1>로딩 중...</h1> : <Movie movies={movies} />}</div>;
+  return (
+    <>
+      {localStorage.getItem("userInfo") === null ? (
+        <Link to="/login">로그인</Link>
+      ) : (
+        <button onClick={onLogOutClick}>로그아웃</button>
+      )}
+      <Movie movies={movies} />
+    </>
+  );
 }
