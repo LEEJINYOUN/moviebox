@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { authService } from "../FireBase";
 import {
   getAuth,
@@ -6,7 +8,6 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import React, { useEffect, useState } from "react";
 
 export default function Login() {
   const [newAccount, setNewAccount] = useState(false);
@@ -60,84 +61,83 @@ export default function Login() {
       setPassword(value);
     }
   };
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userObj, setUserObj] = useState(null);
+
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setIsLoggedIn(true);
-        setUserObj(user);
         if (user.displayName === null) {
           const name = user.email.split("@")[0];
           user.displayName = name;
         }
         let userObject = {
+          uid: user.uid,
           name: user.displayName,
           email: user.email,
           photo: user.photoURL,
         };
         localStorage.setItem("userInfo", JSON.stringify(userObject));
         window.location.replace("/");
-      } else {
-        setIsLoggedIn(false);
-        setUserObj(null);
       }
     });
   }, []);
   return (
-    <div className="authContainer">
-      <form onSubmit={onSubmit} className="authForm">
-        <input
-          name="email"
-          type="email"
-          placeholder="이메일"
-          required
-          value={email}
-          onChange={onChange}
-          className="authInput"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="비밀번호"
-          required
-          value={password}
-          onChange={onChange}
-          className="authInput"
-        />
-        <input
-          type="submit"
-          className="authSubmit"
-          value={newAccount ? "회원가입" : "로그인"}
-        />
-        {error && <span className="authError">{error}</span>}
-      </form>
-      <div className="authSwitchContainer">
-        {newAccount ? (
-          <>
-            <span className="authQuestion">회원인가요?</span>
-            <span onClick={toggleAccount} className="authSwitch">
-              로그인
-            </span>
-          </>
-        ) : (
-          <>
-            <span className="authQuestion">처음인가요?</span>
-            <span onClick={toggleAccount} className="authSwitch">
-              회원가입
-            </span>
-          </>
-        )}
+    <>
+      {" "}
+      <div className="authContainer">
+        <form onSubmit={onSubmit} className="authForm">
+          <input
+            name="email"
+            type="email"
+            placeholder="이메일"
+            required
+            value={email}
+            onChange={onChange}
+            className="authInput"
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="비밀번호"
+            required
+            value={password}
+            onChange={onChange}
+            className="authInput"
+          />
+          <input
+            type="submit"
+            className="authSubmit"
+            value={newAccount ? "회원가입" : "로그인"}
+          />
+          {error && <span className="authError">{error}</span>}
+        </form>
+        <div className="authSwitchContainer">
+          {newAccount ? (
+            <>
+              <span className="authQuestion">회원인가요?</span>
+              <span onClick={toggleAccount} className="authSwitch">
+                로그인
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="authQuestion">처음인가요?</span>
+              <span onClick={toggleAccount} className="authSwitch">
+                회원가입
+              </span>
+            </>
+          )}
+        </div>
+        <div className="authOtherWay">
+          <button
+            onClick={onSocialClick}
+            name="google"
+            className="otherWayBtn googleBtn"
+          >
+            구글 로그인
+          </button>
+        </div>
       </div>
-      <div className="authOtherWay">
-        <button
-          onClick={onSocialClick}
-          name="google"
-          className="otherWayBtn googleBtn"
-        >
-          구글 로그인
-        </button>
-      </div>
-    </div>
+      <Link to="/">메인으로</Link>
+    </>
   );
 }
