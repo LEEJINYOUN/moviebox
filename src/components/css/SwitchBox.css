@@ -1,0 +1,19 @@
+.switchBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+}
+
+.authQuestion + .authSwitch {
+  margin-left: 10px;
+}
+
+.authQuestion {
+  color: red;
+}
+
+.authSwitch {
+  cursor: pointer;
+}
