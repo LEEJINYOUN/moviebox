@@ -15,7 +15,7 @@ export default function Home() {
     getMovies();
   }, []);
   return (
-    <section className="homeContainer">
+    <section className="homeSection">
       <Movie movies={movies} />
     </section>
   );

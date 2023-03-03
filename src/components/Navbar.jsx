@@ -11,7 +11,7 @@ export default function Navbar() {
     window.location.replace("/");
   };
   return (
-    <div className="navbarContainer">
+    <section className="navbarSection">
       {localStorage.getItem("userInfo") === null ? (
         <>
           <div className="navLogo">
@@ -43,6 +43,6 @@ export default function Navbar() {
           </div>
         </>
       )}
-    </div>
+    </section>
   );
 }

@@ -9,7 +9,12 @@ a {
   color: black;
 }
 
-.homeContainer {
+.homeSection,
+.loginSection {
   background-color: #f2f2f2;
   width: 100%;
+}
+
+.loginSection {
+  height: calc(100vh - 60px);
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { authService } from "../FireBase";
 import {
   getAuth,
@@ -8,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import "./css/Login.css";
 
 export default function Login() {
   const [newAccount, setNewAccount] = useState(false);
@@ -81,36 +81,38 @@ export default function Login() {
     });
   }, []);
   return (
-    <>
-      {" "}
-      <div className="authContainer">
-        <form onSubmit={onSubmit} className="authForm">
-          <input
-            name="email"
-            type="email"
-            placeholder="이메일"
-            required
-            value={email}
-            onChange={onChange}
-            className="authInput"
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="비밀번호"
-            required
-            value={password}
-            onChange={onChange}
-            className="authInput"
-          />
-          <input
-            type="submit"
-            className="authSubmit"
-            value={newAccount ? "회원가입" : "로그인"}
-          />
-          {error && <span className="authError">{error}</span>}
+    <section className="loginSection">
+      <div className="loginContainer">
+        <h1 className="loginTitle">간편 로그인</h1>
+        <form onSubmit={onSubmit} className="loginForm">
+          <div className="loginInputBox">
+            <input
+              name="email"
+              type="email"
+              placeholder="이메일"
+              required
+              value={email}
+              onChange={onChange}
+              className="loginInput"
+            />
+            <input
+              name="password"
+              type="password"
+              placeholder="비밀번호"
+              required
+              value={password}
+              onChange={onChange}
+              className="loginInput"
+            />
+            <input
+              type="submit"
+              className="loginSubmit"
+              value={newAccount ? "회원가입" : "로그인"}
+            />
+          </div>
+          {error && <span className="loginError">{error}</span>}
         </form>
-        <div className="authSwitchContainer">
+        <div className="switchBox">
           {newAccount ? (
             <>
               <span className="authQuestion">회원인가요?</span>
@@ -127,17 +129,12 @@ export default function Login() {
             </>
           )}
         </div>
-        <div className="authOtherWay">
-          <button
-            onClick={onSocialClick}
-            name="google"
-            className="otherWayBtn googleBtn"
-          >
+        <div className="otherWayBox">
+          <button onClick={onSocialClick} name="google" className="otherWayBtn">
             구글 로그인
           </button>
         </div>
       </div>
-      <Link to="/">메인으로</Link>
-    </>
+    </section>
   );
 }
