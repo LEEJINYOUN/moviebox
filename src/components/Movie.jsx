@@ -1,23 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./css/Movie.css";
 
 export default function Movie({ movies }) {
   return (
-    <div>
-      {movies.map((item, key) => (
-        <div key={key}>
-          <img
-            src={`https://image.tmdb.org/t/p/w1280/` + item.poster_path}
-            alt="없음"
-            width="150px"
-            height="200px"
-          />
-          <h2>
-            <Link to={`/movie/${item.id}`}>{item.title}</Link>
-          </h2>
-          <p>{item.overview}</p>
-        </div>
-      ))}
-    </div>
+    <section className="movieCardContainer">
+      {movies.map((item, key) => {
+        return (
+          <div className="card" key={key}>
+            <div className="cardTop">
+              <img
+                src={`https://image.tmdb.org/t/p/w1280/` + item.poster_path}
+                alt="영화포스터"
+              />
+            </div>
+            <div className="cardBottom">
+              <Link to={`/movie/${item.id}`} className="cardDetail">
+                {item.title}
+              </Link>
+            </div>
+          </div>
+        );
+      })}
+    </section>
   );
 }

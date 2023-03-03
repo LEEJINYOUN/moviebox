@@ -1,0 +1,77 @@
+.movieCardContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  margin: auto;
+  padding: 30px 5%;
+  max-width: 70vw;
+  height: auto;
+}
+
+.card {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-shadow: 24px 13px 35px -7px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 24px 13px 35px -7px rgba(0, 0, 0, 1);
+  box-shadow: 24px 13px 35px -7px rgba(0, 0, 0, 1);
+  border-radius: 10px;
+  width: 90%;
+  height: 350px;
+}
+
+.cardTop {
+  width: 100%;
+  height: 70%;
+}
+
+.cardTop > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px 10px 0 0;
+}
+
+.cardBottom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 30%;
+}
+
+.cardDetail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 5px;
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+.cardDetail:hover {
+  color: red;
+}
+
+@media screen and (max-width: 1024px) {
+  .movieCardContainer {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 80vw;
+  }
+
+  .cardDetail {
+    font-size: 19px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movieCardContainer {
+    grid-template-columns: repeat(1, 1fr);
+    max-width: 70vw;
+  }
+
+  .cardDetail {
+    font-size: 20px;
+  }
+}

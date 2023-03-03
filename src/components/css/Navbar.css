@@ -1,0 +1,56 @@
+.navbarContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  background-color: black;
+}
+
+.navLogo {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 22px;
+  margin: 15px;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.navIcon + .navTitle {
+  margin-left: 10px;
+}
+
+.navLink {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  margin: 15px 17px;
+  position: relative;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.navLogOut {
+  background-color: black;
+}
+
+.navLink:hover {
+  opacity: 1;
+}
+
+.navLink::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: all 0.45s;
+}
+
+.navLink:hover::before {
+  width: 100%;
+}

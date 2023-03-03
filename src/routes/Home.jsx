@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Movie from "../components/Movie";
-import { authService } from "../FireBase";
 
 export default function Home() {
-  const onLogOutClick = () => {
-    authService.signOut();
-    window.localStorage.clear();
-    window.location.replace("/");
-  };
   const [movies, setMovies] = useState([]);
   const getMovies = async () => {
     const json = await (
@@ -22,13 +15,8 @@ export default function Home() {
     getMovies();
   }, []);
   return (
-    <>
-      {localStorage.getItem("userInfo") === null ? (
-        <Link to="/login">로그인</Link>
-      ) : (
-        <button onClick={onLogOutClick}>로그아웃</button>
-      )}
+    <section className="homeContainer">
       <Movie movies={movies} />
-    </>
+    </section>
   );
 }
