@@ -1,0 +1,110 @@
+.detailContainer {
+  margin: auto;
+  padding-top: 10px;
+  width: 60%;
+  height: 100%;
+}
+
+.detailBox {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 50%;
+  border: 1px solid red;
+}
+
+.detailBoxLeft {
+  width: 35%;
+  height: 100%;
+}
+
+.detailBoxLeft > img {
+  width: 100%;
+  height: 100%;
+}
+
+.detailBoxRight {
+  width: 65%;
+  height: 100%;
+}
+
+.detailBoxRight > div {
+  padding: 0 5px;
+}
+
+.detailTitle,
+.detailGenres,
+.detailRuntime,
+.detailReleaseDate {
+  display: flex;
+  align-items: center;
+}
+
+.detailGenres,
+.detailRuntime,
+.detailReleaseDate {
+  width: 100%;
+  height: 10%;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.detailTitle {
+  justify-content: center;
+  width: 100%;
+  height: 20%;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.detailOverview {
+  width: 100%;
+  height: 50%;
+  font-size: 17px;
+}
+
+.reviewBox {
+  width: 100%;
+  height: 50%;
+  border: 1px solid red;
+}
+
+.reviewWrite {
+  position: relative;
+  width: 100%;
+  height: 30%;
+  background-color: rgb(255, 232, 236);
+}
+
+.reviewForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 70%;
+}
+
+.reviewForm > input[type="text"] {
+  padding-left: 5px;
+  width: 90%;
+  height: 100%;
+  outline: none;
+  font-size: 15px;
+}
+
+.reviewForm > input[type="submit"] {
+  width: 10%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.reviewNone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  font-weight: 700;
+  background-color: rgb(255, 232, 236);
+}

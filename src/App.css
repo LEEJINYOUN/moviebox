@@ -9,12 +9,18 @@ a {
   color: black;
 }
 
+ul {
+  list-style: none;
+}
+
 .homeSection,
-.loginSection {
+.loginSection,
+.detailSection {
   background-color: #f2f2f2;
   width: 100%;
 }
 
-.loginSection {
+.loginSection,
+.detailSection {
   height: calc(100vh - 60px);
 }
