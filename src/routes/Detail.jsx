@@ -72,7 +72,7 @@ export default function Detail() {
   return (
     <>
       {loading ? (
-        <h1>로딩 중...</h1>
+        <span className="loading">로딩 중...</span>
       ) : (
         <section className="detailSection">
           <div className="detailContainer">

@@ -15,11 +15,25 @@ ul {
 
 .homeSection,
 .loginSection,
-.detailSection {
+.detailSection,
+.loading {
   background-color: #f2f2f2;
   width: 100%;
 }
 
 .loginSection {
   height: calc(100vh - 60px);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.detailSection {
+  min-height: calc(100vh - 60px);
 }
