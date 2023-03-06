@@ -1,6 +1,7 @@
 import "./css/Review.css";
 import React, { useState } from "react";
 import { dbService, dbDoc, dbDeleteDoc, dbUpdateDoc } from "../FireBase";
+import ReviewModify from "./ReviewModify";
 
 export default function Review({ reviewObj, userInfo, movieTitle }) {
   const [editing, setEditing] = useState(false);
@@ -13,6 +14,7 @@ export default function Review({ reviewObj, userInfo, movieTitle }) {
       await dbDeleteDoc(reviewDelete);
     }
   };
+
   const toggleEditing = () => {
     setEditing((prev) => !prev);
   };
@@ -24,83 +26,45 @@ export default function Review({ reviewObj, userInfo, movieTitle }) {
     setEditing(false);
   };
 
-  const onChange = (e) => {
-    const {
-      target: { value },
-    } = e;
-    setNewReview(value);
-  };
-
-  const gradeOnChange = (e) => {
-    const {
-      target: { value },
-    } = e;
-    setNewGrade(value);
-  };
-
   return (
     <>
       {movieTitle === reviewObj.movieName ? (
         <section className="reviewListBox" key={reviewObj.id}>
-          {editing ? (
-            <div className="editContainer">
-              <form onSubmit={onSubmit} className="editForm">
-                <div className="editTop">
-                  <span className="editGrade">
-                    <input
-                      type="number"
-                      min="1"
-                      max="5"
-                      defaultValue={newGrade}
-                      onChange={gradeOnChange}
-                    />
-                    &nbsp;점
-                  </span>
-                  <input type="submit" value="수정" className="editSubmitBtn" />
-                </div>
-                <div className="editBottom">
-                  <input
-                    type="text"
-                    value={newReview}
-                    required
-                    onChange={onChange}
-                  />
-                </div>
-              </form>
-              <div className="editCancelBox">
-                <button className="editCancelBtn" onClick={toggleEditing}>
-                  취소
+          <div className="reviewListTop">
+            <span className="reviewUserName">{reviewObj.userName}</span>
+            <span className="reviewCreatedAt">
+              {new Date(reviewObj.createdAt).toLocaleString().slice(0, 10)}
+            </span>
+          </div>
+          <div className="reviewListMiddle">
+            <span className="reviewMovieGrade">
+              {reviewObj.movieGrade}&nbsp;/&nbsp;5
+            </span>
+            {userInfo !== null && reviewObj.creatorId === userInfo.uid ? (
+              <span className="reviewButtons">
+                <button className="editBtn" onClick={toggleEditing}>
+                  수정
                 </button>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="reviewListTop">
-                <span className="reviewUserName">{reviewObj.userName}</span>
-                <span className="reviewCreatedAt">
-                  {new Date(reviewObj.createdAt).toLocaleString().slice(0, 10)}
-                </span>
-              </div>
-              <div className="reviewListMiddle">
-                <span className="reviewMovieGrade">
-                  {reviewObj.movieGrade}&nbsp;/&nbsp;5
-                </span>
-                {userInfo !== null && reviewObj.creatorId === userInfo.uid ? (
-                  <span className="reviewButtons">
-                    <button className="editBtn" onClick={toggleEditing}>
-                      수정
-                    </button>
-                    <button className="deleteBtn" onClick={onDeleteClick}>
-                      삭제
-                    </button>
-                  </span>
-                ) : null}
-              </div>
-              <div className="reviewListBottom">
-                <span className="reviewText">{reviewObj.text}</span>
-              </div>
-            </>
-          )}
+                <button className="deleteBtn" onClick={onDeleteClick}>
+                  삭제
+                </button>
+              </span>
+            ) : null}
+          </div>
+          <div className="reviewListBottom">
+            <span className="reviewText">{reviewObj.text}</span>
+          </div>
+          {editing ? (
+            <ReviewModify
+              toggleEditing={toggleEditing}
+              onSubmit={onSubmit}
+              reviewObj={reviewObj}
+              newReview={newReview}
+              setNewReview={setNewReview}
+              newGrade={newGrade}
+              setNewGrade={setNewGrade}
+            />
+          ) : null}
         </section>
       ) : null}
     </>
