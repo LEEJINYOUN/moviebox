@@ -15,6 +15,7 @@ export default function Detail() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [detailMove, setDetailMove] = useState([]);
+  const [grade, setGrade] = useState(1);
   const [review, setReview] = useState("");
   const getMovies = async () => {
     const json = await (
@@ -26,6 +27,12 @@ export default function Detail() {
     setLoading(false);
   };
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const gradeOnChange = (e) => {
+    const {
+      target: { value },
+    } = e;
+    setGrade(value);
+  };
   const onChange = (e) => {
     const {
       target: { value },
@@ -38,6 +45,7 @@ export default function Detail() {
       userName: userInfo.name,
       movieName: detailMove.title,
       text: review,
+      movieGrade: grade,
       createdAt: Date.now(),
       creatorId: userInfo.uid,
     };
@@ -50,7 +58,7 @@ export default function Detail() {
     getMovies();
     const chatQuery = dbQuery(
       dbCollection(dbService, "review"),
-      dbOrderBy("createdAt", "asc")
+      dbOrderBy("createdAt", "desc")
     );
     dbOnSnapshot(chatQuery, (snapshot) => {
       const chatArr = snapshot.docs.map((document) => ({
@@ -98,14 +106,29 @@ export default function Detail() {
               <div className="reviewWrite">
                 {userInfo !== null ? (
                   <form onSubmit={onSubmit} className="reviewForm">
-                    <input
-                      type="text"
-                      value={review}
-                      onChange={onChange}
-                      placeholder="평점 및 영화 관람평을 작성해주세요."
-                      required
-                    />
-                    <input type="submit" value="작성" />
+                    <div className="reviewTop">
+                      <span>평점 및 관람평 작성</span>
+                    </div>
+                    <div className="reviewMiddle">
+                      <input
+                        type="number"
+                        min="1"
+                        max="5"
+                        defaultValue={grade}
+                        onChange={gradeOnChange}
+                      />
+                      &nbsp;점
+                    </div>
+                    <div className="reviewBottom">
+                      <input
+                        type="text"
+                        value={review}
+                        onChange={onChange}
+                        placeholder="평점 및 영화 관람평을 작성해주세요."
+                        required
+                      />
+                      <input type="submit" value="작성" />
+                    </div>
                   </form>
                 ) : (
                   <div className="reviewNone">

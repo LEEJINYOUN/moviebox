@@ -20,7 +20,6 @@ ul {
   width: 100%;
 }
 
-.loginSection,
-.detailSection {
+.loginSection {
   height: calc(100vh - 60px);
 }
