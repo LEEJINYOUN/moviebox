@@ -1,56 +1,32 @@
-.navbarSection {
+.nav {
+  position: fixed;
+  top: 50px;
+  left: 10px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 60px;
-  background-color: black;
+  flex-direction: column;
+  background-color: white;
+  padding: 10px 20px;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+  border-radius: 5px;
 }
 
-.navLogo {
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  font-size: 22px;
-  margin: 15px;
-  color: #ffffff;
+.nav a,
+.navLogOut {
+  text-decoration: none;
+  color: #0008fc;
   text-transform: uppercase;
-  text-decoration: none;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 600;
 }
 
-.navIcon + .navTitle {
-  margin-left: 10px;
-}
-
-.navLink {
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 700;
-  text-decoration: none;
-  margin: 15px 17px;
-  position: relative;
-  opacity: 0.9;
-  cursor: pointer;
+.nav a:not(:last-child) {
+  margin-bottom: 20px;
 }
 
 .navLogOut {
-  background-color: black;
-}
-
-.navLink:hover {
-  opacity: 1;
-}
-
-.navLink::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0;
-  height: 2px;
-  background: #ffffff;
-  transition: all 0.45s;
-}
-
-.navLink:hover::before {
-  width: 100%;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
 }

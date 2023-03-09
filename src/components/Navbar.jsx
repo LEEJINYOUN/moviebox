@@ -1,7 +1,6 @@
 import React from "react";
 import "./css/Navbar.css";
 import { authService } from "../FireBase";
-import { BiCameraMovie } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
@@ -11,38 +10,24 @@ export default function Navbar() {
     window.location.replace("/");
   };
   return (
-    <section className="navbarSection">
+    <>
       {localStorage.getItem("userInfo") === null ? (
         <>
-          <div className="navLogo">
-            <BiCameraMovie className="navIcon" />
-            <span className="navTitle">movieBox</span>
-          </div>
-          <div className="navItems">
-            <NavLink to="/" className="navLink">
-              홈
-            </NavLink>
-            <NavLink to="/login" className="navLink">
-              로그인
-            </NavLink>
-          </div>
+          <section className="nav">
+            <NavLink to="/">홈</NavLink>
+            <NavLink to="/login">로그인</NavLink>
+          </section>
         </>
       ) : (
         <>
-          <div className="navLogo">
-            <BiCameraMovie className="navIcon" />
-            <span className="navTitle">movieBox</span>
-          </div>
-          <div className="navItems">
-            <NavLink to="/" className="navLink">
-              홈
-            </NavLink>
-            <button className="navLink navLogOut" onClick={onLogOutClick}>
+          <section className="nav">
+            <NavLink to="/">홈</NavLink>
+            <button className="navLogOut" onClick={onLogOutClick}>
               로그아웃
             </button>
-          </div>
+          </section>
         </>
       )}
-    </section>
+    </>
   );
 }

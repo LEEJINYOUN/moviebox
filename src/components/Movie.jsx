@@ -4,24 +4,27 @@ import "./css/Movie.css";
 
 export default function Movie({ movies }) {
   return (
-    <section className="movieCardContainer">
+    <>
       {movies.map((item, key) => {
         return (
-          <div className="card" key={key}>
-            <div className="cardTop">
+          <div className="movieCard" key={key}>
+            <div className="movieImgBox">
               <img
                 src={`https://image.tmdb.org/t/p/w1280/` + item.poster_path}
-                alt="영화포스터"
+                alt={item.title}
+                className="movieImg"
               />
             </div>
-            <div className="cardBottom">
+            <div className="movieText">
               <Link to={`/movie/${item.id}`} className="cardDetail">
-                {item.title}
+                {item.title.length > 10
+                  ? `${item.title.slice(0, 10)}...`
+                  : item.title}
               </Link>
             </div>
           </div>
         );
       })}
-    </section>
+    </>
   );
 }

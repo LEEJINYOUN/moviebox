@@ -1,14 +1,4 @@
-.movieCardContainer {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 50px;
-  margin: auto;
-  padding: 30px 5%;
-  max-width: 70vw;
-  height: auto;
-}
-
-.card {
+.movieCard {
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -16,26 +6,32 @@
   -moz-box-shadow: 24px 13px 35px -7px rgba(0, 0, 0, 1);
   box-shadow: 24px 13px 35px -7px rgba(0, 0, 0, 1);
   border-radius: 10px;
-  width: 90%;
+  width: 80%;
   height: 400px;
 }
 
-.cardTop {
+.movieImgBox {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  height: 70%;
+  height: 80%;
 }
 
-.cardTop > img {
+.movieImg {
   width: 100%;
   height: 100%;
   border-radius: 10px 10px 0 0;
 }
 
-.cardBottom {
+.movieText {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 100%;
-  height: 30%;
+  height: 20%;
+  font-weight: bolder;
+  cursor: pointer;
 }
 
 .cardDetail {
@@ -55,9 +51,16 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .movieCardContainer {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 80vw;
+  .movieCard {
+    width: 85%;
+  }
+
+  .movieImgBox {
+    height: 75%;
+  }
+
+  .movieText {
+    height: 25%;
   }
 
   .cardDetail {
@@ -66,9 +69,20 @@
 }
 
 @media screen and (max-width: 768px) {
-  .movieCardContainer {
-    grid-template-columns: repeat(1, 1fr);
-    max-width: 70vw;
+  .movieCard {
+    width: 80%;
+  }
+
+  .movieImgBox {
+    height: 70%;
+  }
+
+  .movieImg {
+    max-width: 300px;
+  }
+
+  .movieText {
+    height: 30%;
   }
 
   .cardDetail {
