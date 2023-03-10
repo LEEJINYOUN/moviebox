@@ -64,17 +64,21 @@ export default function Detail() {
   const onSubmit = async (e) => {
     e.preventDefault();
     let score = clicked.filter(Boolean).length;
-    const reviewObj = {
-      userName: userInfo.name,
-      movieName: detailMove.title,
-      text: review,
-      movieGrade: score,
-      createdAt: Date.now(),
-      creatorId: userInfo.uid,
-    };
-    await dbAddDoc(dbCollection(dbService, "review"), reviewObj);
+    if (score === 0) {
+      alert("평점을 등록해주세요.");
+    } else {
+      const reviewObj = {
+        userName: userInfo.name,
+        movieName: detailMove.title,
+        text: review,
+        movieGrade: score,
+        createdAt: Date.now(),
+        creatorId: userInfo.uid,
+      };
+      await dbAddDoc(dbCollection(dbService, "review"), reviewObj);
+    }
     setReview("");
-    setClicked("");
+    setClicked([false, false, false, false, false]);
   };
 
   const [reviewContents, setReviewContents] = useState([]);
