@@ -10,12 +10,40 @@ import {
   dbOnSnapshot,
   dbOrderBy,
 } from "../FireBase";
+import { ImStarFull } from "react-icons/im";
+import styled from "styled-components";
+
+const RatingBox = styled.div`
+  margin: 0 auto;
+
+  & svg {
+    color: #c4c4c4;
+    cursor: pointer;
+  }
+  :hover svg {
+    color: #f7a000;
+  }
+  & svg:hover ~ svg {
+    color: #c4c4c4;
+  }
+  .orange {
+    color: #f7a000;
+  }
+`;
 
 export default function Detail() {
+  const [clicked, setClicked] = useState([false, false, false, false, false]);
+  const array = [0, 1, 2, 3, 4];
+  const handleStarClick = (index) => {
+    let clickStates = [...clicked];
+    for (let i = 0; i < 5; i++) {
+      clickStates[i] = i <= index ? true : false;
+    }
+    setClicked(clickStates);
+  };
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [detailMove, setDetailMove] = useState([]);
-  const [grade, setGrade] = useState(1);
   const [review, setReview] = useState("");
   const getMovies = async () => {
     const json = await (
@@ -27,12 +55,6 @@ export default function Detail() {
     setLoading(false);
   };
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const gradeOnChange = (e) => {
-    const {
-      target: { value },
-    } = e;
-    setGrade(value);
-  };
   const onChange = (e) => {
     const {
       target: { value },
@@ -41,16 +63,18 @@ export default function Detail() {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
+    let score = clicked.filter(Boolean).length;
     const reviewObj = {
       userName: userInfo.name,
       movieName: detailMove.title,
       text: review,
-      movieGrade: grade,
+      movieGrade: score,
       createdAt: Date.now(),
       creatorId: userInfo.uid,
     };
     await dbAddDoc(dbCollection(dbService, "review"), reviewObj);
     setReview("");
+    setClicked("");
   };
 
   const [reviewContents, setReviewContents] = useState([]);
@@ -67,7 +91,7 @@ export default function Detail() {
       }));
       setReviewContents(chatArr);
     });
-  }, []);
+  });
 
   return (
     <>
@@ -110,14 +134,16 @@ export default function Detail() {
                       <span>평점 및 관람평 작성</span>
                     </div>
                     <div className="reviewMiddle">
-                      <input
-                        type="number"
-                        min="1"
-                        max="5"
-                        defaultValue={grade}
-                        onChange={gradeOnChange}
-                      />
-                      &nbsp;점
+                      <RatingBox>
+                        {array.map((el) => (
+                          <ImStarFull
+                            key={el}
+                            onClick={() => handleStarClick(el)}
+                            className={clicked[el] && "orange"}
+                            size="35"
+                          />
+                        ))}
+                      </RatingBox>
                     </div>
                     <div className="reviewBottom">
                       <input
@@ -143,6 +169,8 @@ export default function Detail() {
                     reviewObj={item}
                     userInfo={userInfo}
                     movieTitle={detailMove.title}
+                    array={array}
+                    clicked={clicked}
                   />
                 ))}
               </div>

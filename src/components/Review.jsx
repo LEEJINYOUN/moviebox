@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { dbService, dbDoc, dbDeleteDoc, dbUpdateDoc } from "../FireBase";
 import ReviewModify from "./ReviewModify";
 
-export default function Review({ reviewObj, userInfo, movieTitle }) {
+export default function Review({ reviewObj, userInfo, movieTitle, array }) {
   const [editing, setEditing] = useState(false);
   const [newReview, setNewReview] = useState(reviewObj.text);
   const [newGrade, setNewGrade] = useState(reviewObj.movieGrade);
