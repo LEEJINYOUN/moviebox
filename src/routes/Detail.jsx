@@ -95,7 +95,7 @@ export default function Detail() {
       }));
       setReviewContents(chatArr);
     });
-  });
+  }, []);
 
   return (
     <>
@@ -144,18 +144,18 @@ export default function Detail() {
                             key={el}
                             onClick={() => handleStarClick(el)}
                             className={clicked[el] && "orange"}
-                            size="35"
+                            size="27"
                           />
                         ))}
                       </RatingBox>
                     </div>
                     <div className="reviewBottom">
-                      <input
-                        type="text"
+                      <textarea
                         value={review}
                         onChange={onChange}
                         placeholder="평점 및 영화 관람평을 작성해주세요."
                         required
+                        className="reviewWriteText"
                       />
                       <input type="submit" value="작성" />
                     </div>

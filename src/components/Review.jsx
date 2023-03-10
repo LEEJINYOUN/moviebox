@@ -33,7 +33,7 @@ export default function Review({ reviewObj, userInfo, movieTitle }) {
           <div className="reviewListMiddle">
             <span className="reviewMovieGrade">
               {stars.map((item, key) => (
-                <ImStarFull key={key} className="movieGrade" size="15" />
+                <ImStarFull key={key} className="movieGrade" />
               ))}
             </span>
             {userInfo !== null && reviewObj.creatorId === userInfo.uid ? (

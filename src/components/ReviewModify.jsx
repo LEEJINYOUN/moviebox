@@ -80,15 +80,6 @@ export default function ReviewModify({
                   />
                 ))}
               </RatingBox>
-              {/* <input
-                type="number"
-                min="1"
-                max="5"
-                defaultValue={newGrade}
-                onChange={gradeOnChange}
-                className="editGrade"
-              />
-              &nbsp;점 */}
             </div>
             <div className="editTextBox">
               <textarea
