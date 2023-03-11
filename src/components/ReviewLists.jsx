@@ -14,6 +14,7 @@ export default function ReviewLists({
   detailMove,
   starArray,
   starClicked,
+  reviewCount,
 }) {
   const [reviewContents, setReviewContents] = useState([]);
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function ReviewLists({
           movieTitle={detailMove.title}
           starArray={starArray}
           starClicked={starClicked}
+          reviewCount={reviewCount}
         />
       ))}
     </div>

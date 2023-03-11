@@ -4,7 +4,12 @@ import { dbService, dbDoc, dbDeleteDoc } from "../FireBase";
 import ReviewModify from "./ReviewModify";
 import { ImStarFull } from "react-icons/im";
 
-export default function Review({ reviewObj, userInfo, movieTitle }) {
+export default function Review({
+  reviewObj,
+  userInfo,
+  movieTitle,
+  reviewCount,
+}) {
   const starClickedArray = Array(reviewObj.movieGrade).fill(true);
   const [editing, setEditing] = useState(false);
   const [newReview, setNewReview] = useState(reviewObj.text);
@@ -13,6 +18,8 @@ export default function Review({ reviewObj, userInfo, movieTitle }) {
     const reviewDelete = dbDoc(dbService, "review", `${reviewObj.id}`);
     if (ok) {
       await dbDeleteDoc(reviewDelete);
+      reviewCount = 0;
+      window.location.reload();
     }
   };
   const toggleEditing = () => {

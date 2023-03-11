@@ -4,7 +4,14 @@ import { useParams } from "react-router-dom";
 import MovieDetail from "../components/MovieDetail";
 import ReviewWrite from "../components/ReviewWrite";
 import ReviewLists from "../components/ReviewLists";
-import { dbService, dbAddDoc, dbCollection } from "../FireBase";
+import {
+  dbService,
+  dbAddDoc,
+  dbCollection,
+  dbQuery,
+  dbWhere,
+  dbGetDocs,
+} from "../FireBase";
 import styled from "styled-components";
 
 const StarCheckBox = styled.div`
@@ -26,6 +33,7 @@ const StarCheckBox = styled.div`
 `;
 
 export default function Detail() {
+  let reviewCount = 0;
   const [starClicked, setStarClicked] = useState([
     false,
     false,
@@ -45,6 +53,7 @@ export default function Detail() {
   const [loading, setLoading] = useState(true);
   const [detailMove, setDetailMove] = useState([]);
   const [review, setReview] = useState("");
+  const [reviewContents, setReviewContents] = useState(0);
   const getMovies = async () => {
     const json = await (
       await fetch(
@@ -53,7 +62,20 @@ export default function Detail() {
     ).json();
     setDetailMove(json);
     setLoading(false);
+    let reviewContentsArray = [];
+    const reviewRef = dbCollection(dbService, "review");
+    const reviewQuery = dbQuery(
+      reviewRef,
+      dbWhere("movieName", "==", json.title),
+      dbWhere("creatorId", "==", userInfo.uid)
+    );
+    const querySnapshot = await dbGetDocs(reviewQuery);
+    querySnapshot.forEach((doc) => {
+      reviewContentsArray.push(doc.data());
+    });
+    setReviewContents(reviewContentsArray.length);
   };
+
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   const onChange = (e) => {
     const {
@@ -61,25 +83,33 @@ export default function Detail() {
     } = e;
     setReview(value);
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     let score = starClicked.filter(Boolean).length;
     if (score === 0) {
       alert("평점을 등록해주세요.");
     } else {
-      const reviewObj = {
-        userName: userInfo.name,
-        movieName: detailMove.title,
-        text: review,
-        movieGrade: score,
-        createdAt: Date.now(),
-        creatorId: userInfo.uid,
-      };
-      await dbAddDoc(dbCollection(dbService, "review"), reviewObj);
+      if (reviewCount !== 0 || reviewContents !== 0) {
+        alert("이미 관람평을 작성하셨습니다.");
+      } else {
+        const reviewObj = {
+          userName: userInfo.name,
+          movieName: detailMove.title,
+          text: review,
+          movieGrade: score,
+          createdAt: Date.now(),
+          creatorId: userInfo.uid,
+        };
+        await dbAddDoc(dbCollection(dbService, "review"), reviewObj);
+        reviewCount = 1;
+        window.location.reload();
+      }
     }
     setReview("");
     setStarClicked([false, false, false, false, false]);
   };
+
   useEffect(() => {
     getMovies();
   }, []);
@@ -108,6 +138,7 @@ export default function Detail() {
                 detailMove={detailMove}
                 starArray={starArray}
                 starClicked={starClicked}
+                reviewCount={reviewCount}
               />
             </div>
           </div>

@@ -10,6 +10,8 @@ import {
   doc,
   deleteDoc,
   updateDoc,
+  where,
+  getDocs,
 } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
 
@@ -34,3 +36,5 @@ export const dbOrderBy = orderBy;
 export const dbDoc = doc;
 export const dbDeleteDoc = deleteDoc;
 export const dbUpdateDoc = updateDoc;
+export const dbWhere = where;
+export const dbGetDocs = getDocs;
