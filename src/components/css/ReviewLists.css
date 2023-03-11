@@ -1,0 +1,10 @@
+.reviewLists {
+  margin: auto;
+  width: 80%;
+}
+
+@media screen and (max-width: 1024px) {
+  .reviewLists {
+    width: 100%;
+  }
+}

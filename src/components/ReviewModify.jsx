@@ -5,7 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { ImStarFull } from "react-icons/im";
 import styled from "styled-components";
 
-const RatingBox = styled.div`
+const StarCheckBox = styled.div`
   margin: 0 auto;
 
   & svg {
@@ -30,14 +30,20 @@ export default function ReviewModify({
   setNewReview,
   setEditing,
 }) {
-  const [clicked, setClicked] = useState([false, false, false, false, false]);
-  const array = [0, 1, 2, 3, 4];
-  const handleStarClick = (index) => {
-    let clickStates = [...clicked];
+  const [starClicked, setStarClicked] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const starArray = [0, 1, 2, 3, 4];
+  const handleStarClick = (e) => {
+    let starClick = [...starClicked];
     for (let i = 0; i < 5; i++) {
-      clickStates[i] = i <= index ? true : false;
+      starClick[i] = i <= e ? true : false;
     }
-    setClicked(clickStates);
+    setStarClicked(starClick);
   };
   const onChange = (e) => {
     const {
@@ -47,7 +53,7 @@ export default function ReviewModify({
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    let score = clicked.filter(Boolean).length;
+    let score = starClicked.filter(Boolean).length;
     if (score === 0) {
       alert("평점을 등록해주세요.");
     } else {
@@ -70,16 +76,16 @@ export default function ReviewModify({
           <form onSubmit={onSubmit} className="editForm">
             <span className="editMovieName">{reviewObj.movieName}</span>
             <div className="editGradeBox">
-              <RatingBox>
-                {array.map((el) => (
+              <StarCheckBox>
+                {starArray.map((el) => (
                   <ImStarFull
                     key={el}
                     onClick={() => handleStarClick(el)}
-                    className={clicked[el] && "orange"}
+                    className={starClicked[el] && "orange"}
                     size="27"
                   />
                 ))}
-              </RatingBox>
+              </StarCheckBox>
             </div>
             <div className="editTextBox">
               <textarea

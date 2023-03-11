@@ -5,7 +5,7 @@ import ReviewModify from "./ReviewModify";
 import { ImStarFull } from "react-icons/im";
 
 export default function Review({ reviewObj, userInfo, movieTitle }) {
-  const stars = Array(reviewObj.movieGrade).fill(true);
+  const starClickedArray = Array(reviewObj.movieGrade).fill(true);
   const [editing, setEditing] = useState(false);
   const [newReview, setNewReview] = useState(reviewObj.text);
   const onDeleteClick = async () => {
@@ -15,7 +15,6 @@ export default function Review({ reviewObj, userInfo, movieTitle }) {
       await dbDeleteDoc(reviewDelete);
     }
   };
-
   const toggleEditing = () => {
     setEditing((prev) => !prev);
   };
@@ -32,7 +31,7 @@ export default function Review({ reviewObj, userInfo, movieTitle }) {
           </div>
           <div className="reviewListMiddle">
             <span className="reviewMovieGrade">
-              {stars.map((item, key) => (
+              {starClickedArray.map((item, key) => (
                 <ImStarFull key={key} className="movieGrade" />
               ))}
             </span>
