@@ -76,7 +76,7 @@ export default function ReviewModify({
                     key={el}
                     onClick={() => handleStarClick(el)}
                     className={clicked[el] && "orange"}
-                    size="35"
+                    size="27"
                   />
                 ))}
               </RatingBox>
