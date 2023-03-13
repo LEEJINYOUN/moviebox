@@ -24,7 +24,7 @@ export default function Login() {
           photo: user.photoURL,
         };
         localStorage.setItem("userInfo", JSON.stringify(userObject));
-        window.location.replace("/");
+        window.location.replace("/moviebox");
       }
     });
   }, []);
