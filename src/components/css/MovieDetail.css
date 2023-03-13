@@ -79,6 +79,10 @@
     height: 60%;
   }
 
+  .detailBoxRight > div {
+    padding: 5px 0;
+  }
+
   .detailTitle {
     font-size: 18px;
   }
