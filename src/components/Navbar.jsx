@@ -14,14 +14,14 @@ export default function Navbar() {
       {localStorage.getItem("userInfo") === null ? (
         <>
           <section className="nav">
-            <NavLink to="/">홈</NavLink>
+            <NavLink to="/movieBox">홈</NavLink>
             <NavLink to="/login">로그인</NavLink>
           </section>
         </>
       ) : (
         <>
           <section className="nav">
-            <NavLink to="/">홈</NavLink>
+            <NavLink to="/movieBox">홈</NavLink>
             <button className="navLogOut" onClick={onLogOutClick}>
               로그아웃
             </button>
