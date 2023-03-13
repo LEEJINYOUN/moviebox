@@ -7,7 +7,7 @@ export default function Navbar() {
   const onLogOutClick = () => {
     authService.signOut();
     window.localStorage.clear();
-    window.location.replace("/");
+    window.location.replace("/moviebox");
   };
   return (
     <>
